@@ -1,6 +1,7 @@
-import { vector } from "./vector";
+import { addVector, vector } from "./vector";
 import { sphere } from "./sphere";
 import { camera, render } from "./camera";
+// import { curry, memo } from "./functional";
 
 const canvas = document.createElement("canvas");
 const context = canvas.getContext("2d");
@@ -26,12 +27,28 @@ window.addEventListener("load", () => {
 });
 
 const main = () => {
+  // const mAddVector = memo(curry(addVector));
+  // const mVector = memo(curry(vector));
+  // console.log(mAddVector(mVector(0)(0)(0))(mVector(1)(2)(3)));
+  // console.log(mAddVector(mVector(0)(0)(0))(mVector(1)(2)(3)));
+  // console.log(mAddVector(mVector(0)(0)(0))(mVector(1)(2)(3)));
+  // console.log(mAddVector(mVector(0)(0)(0))(mVector(1)(2)(3)));
+  // console.log(mAddVector(mVector(0)(0)(0))(mVector(1)(2)(3)));
+  // console.log(mAddVector(mVector(0)(0)(0))(mVector(1)(2)(3)));
+
+  // console.log(vector(1, 2, 3));
+
+  // console.log(addVector(vector(1, 2, 3), vector(1, 2, 3)));
+  // console.log(addVector(vector(1, 2, 3), vector(1, 2, 3)));
+  // console.log(addVector(vector(1, 2, 3), vector(1, 2, 3)));
+  // console.log(addVector(vector(1, 2, 3), vector(1, 2, 3)));
+
   const hittables = [
     sphere(vector(0, 0, -1), 0.5),
     sphere(vector(0, -100.5, -1), 100),
   ];
 
-  const c = camera(16 / 9, window.innerWidth);
+  const c = camera(16 / 9, window.innerWidth, 10);
 
   render(c, context, hittables);
 };

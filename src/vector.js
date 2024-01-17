@@ -1,4 +1,6 @@
-export const vector = (...c) => c;
+import { memo, curry } from "./functional";
+
+// export const vector = (a, b, c) => [a, b, c];
 
 export const negate = (v) => v.map((c) => -c);
 
@@ -12,9 +14,8 @@ export const multiplyVector = (v1, v2) => v1.map((c, i) => c * v2[i]);
 
 export const divideScalar = (v, s) => multiplyScalar(v, 1 / s);
 
-export const lengthSquared = (v) => v.reduce((a, c) => a + c * c, 0);
-
-export const length = (v) => Math.sqrt(lengthSquared(v));
+// export const lengthSquared = (v) => v.reduce((a, c) => a + c * c, 0);
+// export const length = (v) => Math.sqrt(lengthSquared(v));
 
 export const dotProduct = (v1, v2) => v1.reduce((a, c, i) => a + c * v2[i], 0);
 
@@ -26,3 +27,14 @@ export const crossProduct = (v1, v2) =>
   );
 
 export const normalize = (v) => divideScalar(v, length(v));
+
+
+// Memoized versions:
+export const lengthSquared = memo((v) => v.reduce((a, c) => a + c * c, 0));
+export const length = memo((v) => Math.sqrt(lengthSquared(v)));
+
+const mVector = memo(curry((a, b, c) => [a, b, c]));
+export const vector = (a, b, c) => mVector(a)(b)(c);
+
+// const mAddVector = memo(curry((v1, v2) => v1.map((c, i) => c + v2[i])));
+// export const addVector = (v1, v2) => mAddVector(v1)(v2);
